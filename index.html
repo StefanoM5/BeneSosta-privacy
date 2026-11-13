@@ -3,10 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light dark">
-<meta name="robots" content="noindex">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
-<title>BeneSosta — Informativa privacy</title>
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Informativa privacy dell'app BeneSosta (it.stefanom5.benesosta) per Android e iOS.">
+<title>Informativa privacy — BeneSosta</title>
 <style>
   :root {
     --bg: #ffffff;
@@ -26,48 +27,589 @@
       --panel: #1c1f25;
     }
   }
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   body {
     margin: 0;
     background: var(--bg);
     color: var(--text);
     font: 1.0625rem/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    overflow-wrap: break-word;
   }
-  main { max-width: 40rem; margin: 0 auto; padding: 3rem 1rem 2rem; }
-  header { margin-bottom: 2rem; }
-  .brand { font-size: 2rem; font-weight: 700; letter-spacing: -0.01em; margin: 0; }
-  .tagline { color: var(--muted); margin: 0.25rem 0 0; font-size: 1.125rem; }
-  section { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 1.25rem 1.25rem 1.5rem; }
-  h1 { font-size: 1.4rem; line-height: 1.3; margin: 0 0 0.75rem; }
-  p { margin: 0 0 1rem; }
-  dl { margin: 1.25rem 0 0; display: grid; gap: 0.75rem; }
-  dt { color: var(--muted); font-size: 0.95rem; }
-  dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
+  main, header.top, footer { max-width: 44rem; margin: 0 auto; padding: 0 1rem; }
+  header.top { padding-top: 1.5rem; }
+  h1 { font-size: 1.75rem; line-height: 1.25; margin: 0.5rem 0; }
+  h2 { font-size: 1.3rem; line-height: 1.3; margin: 2.25rem 0 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--line); }
+  h3 { font-size: 1.08rem; margin: 1.5rem 0 0.25rem; }
+  p, ul, ol { margin: 0.6rem 0; }
+  li + li { margin-top: 0.3rem; }
   a { color: var(--accent); text-underline-offset: 0.15em; }
   a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+  .meta { color: var(--muted); margin: 0; }
+  .skip { position: absolute; left: -999rem; }
+  .skip:focus { left: 1rem; top: 1rem; background: var(--bg); padding: 0.5rem 0.75rem; z-index: 1; }
+  nav.toc { background: var(--panel); border-radius: 8px; padding: 0.75rem 1rem; margin: 1.25rem 0; }
+  nav.toc h2 { border: 0; margin: 0; padding: 0; font-size: 1rem; }
+  nav.toc ol { padding-left: 1.4rem; }
+  .table-wrap { overflow-x: auto; margin: 0.75rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.97rem; }
+  caption { text-align: left; font-weight: 600; padding-bottom: 0.4rem; }
+  th, td { border: 1px solid var(--line); padding: 0.5rem 0.6rem; text-align: left; vertical-align: top; }
+  thead th { background: var(--panel); }
+  /* Tabelle a più colonne: sul telefono ogni riga diventa una scheda, con l'etichetta prima di ogni valore. */
+  @media (max-width: 40rem) {
+    table.stack caption { display: block; width: 100%; }
+    table.stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    table.stack, table.stack tbody, table.stack tr, table.stack th, table.stack td { display: block; width: 100%; }
+    table.stack tr { border: 1px solid var(--line); border-radius: 8px; margin: 0 0 0.75rem; overflow: hidden; }
+    table.stack th[scope="row"] { background: var(--panel); border: 0; border-bottom: 1px solid var(--line); }
+    table.stack td { border: 0; padding-top: 0.35rem; }
+    table.stack td::before { content: attr(data-label); display: block; font-size: 0.85rem; font-weight: 600; color: var(--muted); }
+  }
+  .flows { display: grid; gap: 0.75rem; margin: 1rem 0; }
+  @media (min-width: 40rem) { .flows { grid-template-columns: repeat(3, 1fr); } }
+  .flow { border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: 8px; padding: 0.6rem 0.9rem; background: var(--panel); }
+  .flow h3 { margin: 0.2rem 0 0.4rem; font-size: 1rem; }
+  .flow ul { padding-left: 1.1rem; margin: 0.3rem 0; font-size: 0.97rem; }
+  footer { color: var(--muted); padding-top: 2rem; padding-bottom: 2.5rem; font-size: 0.95rem; }
+  @media print {
+    nav.toc, .skip { display: none; }
+    a { color: inherit; }
+  }
 </style>
 </head>
 <body>
-<main>
-  <header>
-    <p class="brand">BeneSosta</p>
-    <p class="tagline">La tua sosta, più semplice.</p>
-  </header>
-  <section aria-labelledby="titolo">
-    <h1 id="titolo">Informativa privacy</h1>
-    <p>L'informativa privacy definitiva sarà disponibile prima della distribuzione pubblica dell'app.</p>
-    <dl>
-      <div>
-        <dt>Per informazioni</dt>
-        <dd><a href="mailto:barmast@gmail.com">barmast@gmail.com</a></dd>
-      </div>
-      <div>
-        <dt>Titolare</dt>
-        <dd>Stefano Mastrocinque</dd>
-      </div>
-    </dl>
+<a class="skip" href="#contenuto">Vai al contenuto</a>
+
+<header class="top">
+  <p class="meta">BeneSosta · <span lang="en">Android</span> e <span lang="en">iOS</span></p>
+  <h1>Informativa privacy — BeneSosta</h1>
+  <p class="meta">Ultimo aggiornamento: <time datetime="2026-11-13">13 novembre 2026</time></p>
+</header>
+
+<main id="contenuto">
+  <p>
+    Questa informativa descrive come l’app <strong>BeneSosta</strong> tratta i dati personali, ai sensi degli articoli 13
+    e 14 del Regolamento (UE) 2016/679 (GDPR). Vale per l’app su Android e iOS, con identificativo
+    <code>it.stefanom5.benesosta</code>.
+  </p>
+  <p>
+    BeneSosta aiuta a scegliere la zona (A o B) della sosta su strada a Benevento e apre la pagina ufficiale di SpotPay della
+    zona nel browser. È un’app indipendente: non è affiliata a SpotPay, a BeMobi (Benevento Mobilità S.r.l.) né al Comune
+    di Benevento. Non ha account, server propri o pubblicità. BeneSosta non gestisce né verifica pagamenti: la sosta si
+    paga su SpotPay, che ne è responsabile, e nessun dato di pagamento passa dall’app.
+  </p>
+
+  <nav class="toc" aria-labelledby="indice">
+    <h2 id="indice">Indice</h2>
+    <ol>
+      <li><a href="#titolare">Titolare e contatti</a></li>
+      <li><a href="#sintesi">In breve</a></li>
+      <li><a href="#dati">Dati trattati e conservazione</a></li>
+      <li><a href="#statistiche">Statistiche di utilizzo (solo Android)</a></li>
+      <li><a href="#basi">Finalità e basi giuridiche</a></li>
+      <li><a href="#destinatari">Destinatari e trasferimenti fuori dall’UE</a></li>
+      <li><a href="#cancellazione">Revoca del consenso e cancellazione</a></li>
+      <li><a href="#diritti">I tuoi diritti</a></li>
+      <li><a href="#piattaforme">Differenze tra Android e iOS</a></li>
+      <li><a href="#altro">Altre informazioni</a></li>
+      <li><a href="#modifiche">Modifiche all’informativa</a></li>
+    </ol>
+  </nav>
+
+  <section aria-labelledby="titolare">
+    <h2 id="titolare">1. Titolare e contatti</h2>
+    <p><strong>Titolare del trattamento e sviluppatore dell’app:</strong> Stefano Mastrocinque, Italia.</p>
+    <p>
+      <strong>Contatto privacy:</strong>
+      <a href="mailto:barmast@gmail.com">barmast@gmail.com</a>
+    </p>
+    <p>
+      Per domande sulla privacy, per esercitare i tuoi diritti o per revocare un consenso puoi scrivere a questo
+      indirizzo.
+    </p>
+    <p>
+      BeneSosta è un progetto personale e indipendente del titolare, separato da attività professionali o commerciali.
+      L’app è gratuita, senza pubblicità, abbonamenti o acquisti in-app. Se il modello cambierà, questa informativa sarà
+      rivista prima della modifica.
+    </p>
+    <p>Non è stato designato un responsabile della protezione dei dati (RPD/DPO).</p>
+  </section>
+
+  <section aria-labelledby="sintesi">
+    <h2 id="sintesi">2. In breve</h2>
+    <p>I dati seguono tre strade diverse:</p>
+    <div class="flows">
+      <section class="flow" aria-labelledby="flusso-telefono">
+        <h3 id="flusso-telefono">Solo sul tuo telefono</h3>
+        <ul>
+          <li>targhe e nomi dei veicoli;</li>
+          <li>zona usata e ultima apertura di SpotPay;</li>
+          <li>domanda sul pagamento e promemoria sosta, con le sue notifiche;</li>
+          <li>preferenze.</li>
+        </ul>
+        <p>Il titolare non li riceve. Li cancelli dall’app.</p>
+      </section>
+      <section class="flow" aria-labelledby="flusso-google">
+        <h3 id="flusso-google">A Google, solo se acconsenti (Android)</h3>
+        <ul>
+          <li>statistiche di utilizzo con Google Analytics for Firebase;</li>
+          <li>mai targhe, coordinate GPS, vie, nomi, email o ID pubblicità.</li>
+        </ul>
+        <p>Spente finché non scegli, revocabili in ogni momento. Il nome della via è un’altra cosa: vedi
+          <a href="#posizione">Posizione</a>.</p>
+      </section>
+      <section class="flow" aria-labelledby="flusso-siti">
+        <h3 id="flusso-siti">Ai siti che apri</h3>
+        <ul>
+          <li>SpotPay, per pagare la sosta, e la mappa BeMobi;</li>
+          <li>ricevono ciò che inserisci tu e i dati della connessione.</li>
+        </ul>
+        <p>Valgono le loro informative.</p>
+      </section>
+    </div>
+    <ul>
+      <li>Targhe, nomi dei veicoli, preferenze e l’eventuale promemoria sosta sono salvati <strong>sul tuo telefono</strong>:
+        il titolare non li riceve.</li>
+      <li>La <strong>posizione</strong> si usa solo con l’app aperta e l’app non la salva. La zona è calcolata sul telefono.
+        Per mostrare il nome della via, il telefono invia le coordinate a Google (Android) o ad Apple (iPhone), anche
+        senza il consenso alle statistiche.</li>
+      <li>La <strong>targa</strong> viene copiata negli appunti quando apri SpotPay. Arriva a SpotPay solo se la incolli tu.</li>
+      <li>Le <strong>statistiche di utilizzo</strong> esistono solo su Android, sono facoltative, spente finché non scegli e
+        revocabili in ogni momento. Non contengono targhe, coordinate GPS, vie, nomi o email.</li>
+      <li>Nessuna pubblicità, nessuna profilazione, nessuna vendita di dati, nessuna decisione automatizzata con effetti
+        giuridici.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="dati">
+    <h2 id="dati">3. Dati trattati e conservazione</h2>
+
+    <h3>Dati salvati sul telefono</h3>
+    <div class="table-wrap">
+      <table class="stack">
+        <caption>Dati salvati nella memoria dell’app sul telefono</caption>
+        <thead>
+          <tr><th scope="col">Dato</th><th scope="col">A cosa serve</th><th scope="col">Per quanto tempo</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Targhe e nomi dei veicoli (facoltativi, massimo 40 caratteri), veicolo predefinito</th>
+            <td data-label="A cosa serve">Garage dei veicoli e copia della targa</td>
+            <td data-label="Per quanto tempo">Finché non li modifichi o elimini, usi «Cancella tutti i dati» o disinstalli l’app</td>
+          </tr>
+          <tr>
+            <th scope="row">Ultima apertura di SpotPay: veicolo e targa usati, zona, orario, scelta della zona con GPS o manuale</th>
+            <td data-label="A cosa serve">Mantenere la zona usata se riapri l’app lontano dall’auto. Non indica una sosta pagata</td>
+            <td data-label="Per quanto tempo">Zona valida per al massimo 12 ore. Il dato salvato può restare più a lungo se non riapri l’app (vedi
+              sotto)</td>
+          </tr>
+          <tr>
+            <th scope="row">Domanda sul pagamento in sospeso: veicolo e targa usati, zona, orario di apertura di SpotPay</th>
+            <td data-label="A cosa serve">Chiederti al ritorno se hai completato il pagamento. Non indica una sosta pagata</td>
+            <td data-label="Per quanto tempo">Al massimo 3 ore: eliminata quando rispondi, con «Cancella tutti i dati» o alla prima apertura successiva</td>
+          </tr>
+          <tr>
+            <th scope="row">Promemoria sosta (facoltativo): veicolo e targa, zona, orario di creazione e di scadenza, stato
+              delle notifiche</th>
+            <td data-label="A cosa serve">Scheda «Sosta attiva», conto alla rovescia e avvisi di scadenza. È un promemoria impostato da te, non una
+              prova di pagamento</td>
+            <td data-label="Per quanto tempo">Fino a «Termina promemoria», alla sostituzione con un nuovo promemoria, a «Cancella tutti i dati» o alla
+              prima apertura dell’app dopo 12 ore dalla scadenza</td>
+          </tr>
+          <tr>
+            <th scope="row">Preferenze: ultima zona scelta a mano, spiegazione del permesso di posizione già mostrata,
+              scelta sulle statistiche</th>
+            <td data-label="A cosa serve">Funzionamento dell’app e rispetto della tua scelta</td>
+            <td data-label="Per quanto tempo">Finché non usi «Cancella tutti i dati» o disinstalli l’app</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Targhe, nomi dei veicoli, preferenze e l’eventuale promemoria sosta sono salvati nella memoria dell’app sul telefono, finché non li elimini. L’app non li invia al titolare né ad altri e li esclude dal backup automatico nel cloud.
+      Il backup escluso è quello di Google su Android e di iCloud su iOS. L’app non cifra i dati oltre alla protezione
+      del sistema operativo.
+    </p>
+    <p>
+      <strong>Ultima apertura di SpotPay.</strong>
+      Quando apri SpotPay, l’app salva la targa e la zona usate, con l’orario. La zona resta valida per al massimo 12 ore. Il dato salvato viene eliminato alla scadenza se l’app è aperta, altrimenti alla prima apertura successiva; prima ancora con «Nuova sosta», cambiando veicolo o zona, o con «Cancella tutti i dati». Se non riapri l’app, può quindi restare sul telefono oltre le 12 ore.
+    </p>
+    <p>
+      <strong>Domanda sul pagamento e promemoria sosta.</strong>
+      Quando apri SpotPay, l’app salva anche targa e zona per chiederti, al ritorno, se hai completato il pagamento. La domanda vale al massimo 3 ore e viene eliminata quando rispondi, con «Cancella tutti i dati» o alla prima apertura successiva alle 3 ore. La risposta non viene salvata né inviata e l’app non verifica il pagamento. Se attivi un promemoria sosta, l’app salva targa, zona e orario di scadenza che hai indicato. La durata la scegli tu e il promemoria non è una prova del pagamento né della validità del ticket. Le notifiche del promemoria mostrano zona e orario, anche sulla schermata di blocco, ma non la targa. Su Android una notifica mostra il conto alla rovescia e gli avvisi arrivano 10 minuti prima e alla scadenza; notifica e avvisi sono creati sul telefono, senza servizi di notifica in rete. Su iPhone, per ora, il promemoria è visibile solo nell’app, senza notifiche. Il promemoria viene eliminato con «Termina promemoria», quando lo sostituisci, con «Cancella tutti i dati» o alla prima apertura dell’app dopo 12 ore dalla scadenza.
+      Per ripristinare notifica e avvisi dopo un riavvio del telefono, l’app conserva una copia con zona e orari, senza la
+      targa, eliminata insieme al promemoria.
+    </p>
+    <p>
+      <strong>Passaggio a un nuovo telefono.</strong> BeneSosta non ha account né una funzione per sincronizzare o
+      trasferire i dati tra telefoni. Su un nuovo telefono i veicoli vanno inseriti di nuovo.
+    </p>
+    <p>
+      Su Android l’app chiede al sistema di escludere i propri dati sia dal backup nel cloud sia dal trasferimento
+      diretto a un nuovo telefono (su Android 12 e successivi, ad esempio con un cavo o con gli strumenti di
+      trasferimento del sistema o del produttore). L’esclusione è applicata dal sistema operativo e dagli strumenti
+      usati per il trasferimento, che potrebbero non rispettarla su tutti i telefoni. Su iPhone l’esclusione dal
+      trasferimento diretto da un iPhone all’altro non è garantita: i dati dell’app potrebbero essere copiati sul nuovo
+      telefono. In ogni caso il titolare non riceve questi dati e puoi eliminarli con «Cancella tutti i dati».
+    </p>
+
+    <h3 id="posizione">Posizione</h3>
+    <p>
+      La posizione è usata solo mentre l’app è aperta, per suggerire la zona: è confrontata sul telefono con la mappa delle zone e l’app non la salva. Quando la zona è riconosciuta, per mostrare il nome della via il telefono invia le coordinate al servizio di geocodifica del sistema operativo: su Android a Google, tramite Google Play Services, su iPhone ad Apple. Succede anche se non hai acconsentito alle statistiche, perché fa parte della funzione di posizione; la scelta della zona non dipende dal nome della via. Nessun accesso alla posizione in background.
+    </p>
+    <ul>
+      <li><strong>GPS per suggerire la zona:</strong> con il tuo permesso il telefono rileva la posizione per pochi
+        secondi, all’apertura dell’app se il permesso è già concesso o quando tocchi «Rileva». Su Android la posizione è
+        fornita dai servizi di localizzazione di sistema (Google Play Services), secondo le impostazioni del telefono.
+        L’app funziona anche con la sola scelta manuale della zona.</li>
+      <li><strong>Nome della via («Vicino a Via …»):</strong> solo quando la zona è riconosciuta, il telefono invia le
+        coordinate al servizio di geocodifica del sistema operativo, che restituisce il nome della via. Succede anche
+        quando la rilevazione parte da sola all’apertura dell’app. Il servizio è fornito dal produttore del sistema
+        operativo secondo le sue condizioni e informative. Il nome è solo informativo. L’app non salva né le coordinate
+        né il nome della via.
+        <ul>
+          <li><strong>Android:</strong> la richiesta passa da Google Play Services, che contatta un servizio di Google.
+            Google Play Services sa quale app ha fatto la richiesta. Per un punto già cercato di recente può rispondere
+            senza un nuovo invio. Senza connessione, per un punto nuovo, il nome della via non viene mostrato. Sui telefoni
+            Android senza Google Play Services il nome della via può non essere disponibile o essere fornito da un servizio
+            del produttore del telefono.</li>
+          <li><strong>iPhone:</strong> la richiesta passa dal servizio di geocodifica di Apple, integrato in iOS.</li>
+        </ul>
+      </li>
+      <li><strong>Località approssimativa delle statistiche:</strong> è una cosa diversa. Se acconsenti alle statistiche
+        (solo Android), Google ricava una località approssimativa dall’indirizzo IP della connessione, non dal GPS
+        (vedi <a href="#statistiche">Statistiche di utilizzo</a>).</li>
+    </ul>
+    <p>
+      Se non vuoi che le coordinate siano inviate a Google o ad Apple per il nome della via, non concedere il permesso di
+      posizione, oppure revocalo nelle impostazioni del telefono, e scegli la zona a mano.
+    </p>
+    <p>
+      <strong>Versione per iPhone.</strong> La versione per iPhone non è ancora disponibile. Le indicazioni su iPhone
+      descrivono il funzionamento previsto dell’app: se la versione per iPhone dovesse trattare i dati in modo diverso,
+      questa informativa sarà aggiornata prima della sua distribuzione.
+    </p>
+
+    <h3>Appunti</h3>
+    <p>
+      Quando tocchi «Procedi su SpotPay» o «Riapri SpotPay», l’app copia la targa negli appunti del telefono. Da lì la possono leggere le app che accedono agli appunti e, secondo le impostazioni, la tastiera può conservarla o il telefono sincronizzarla con altri dispositivi. L’app non svuota gli appunti, nemmeno con «Cancella tutti i dati»: la targa resta finché non copi altro.
+    </p>
+
+    <h3>SpotPay e collegamenti esterni</h3>
+    <p>
+      «Procedi su SpotPay» apre nel browser la pagina ufficiale di SpotPay della zona scelta. L’indirizzo contiene solo
+      l’identificativo della zona, non la targa.
+      La targa arriva a SpotPay solo se la incolli o la scrivi tu nella sua pagina, nel browser: l’app non la inserisce da sola e non la mette nell’indirizzo della pagina.
+      Stallo, durata e pagamento si completano su SpotPay, con le sue condizioni e la sua informativa privacy: il titolare
+      di BeneSosta non riceve i dati che inserisci lì.
+    </p>
+    <p>
+      «Procedi su SpotPay» e «Apri la mappa BeMobi» aprono siti esterni nel browser. Come per ogni pagina web, quei siti e il browser ricevono i dati tecnici della connessione, ad esempio l’indirizzo IP, e valgono le loro condizioni e informative.
+      Il pulsante «Apri la mappa BeMobi» si trova nelle Informazioni e apre la mappa pubblica delle strisce blu.
+    </p>
+  </section>
+
+  <section aria-labelledby="statistiche">
+    <h2 id="statistiche">4. Statistiche di utilizzo (solo Android)</h2>
+    <p>
+      Sulla versione Android l’app chiede se vuoi inviare statistiche di utilizzo con Google Analytics for Firebase. Le statistiche non
+      contengono il tuo nome né altri dati che ti identificano direttamente.
+      Sono facoltative e spente finché non scegli. L’app funziona allo stesso modo anche se rifiuti. Sulla versione iOS non
+      vengono raccolte.
+    </p>
+    <p><strong>Finalità.</strong> Le statistiche servono solo a capire quanto è usata l’app, con quale zona e se la zona è scelta con il GPS o a mano.</p>
+    <p><strong>Dati inviati, solo dopo il consenso:</strong></p>
+    <ul>
+      <li>apertura dell’app, all’avvio o al ritorno da un’altra app;</li>
+      <li>apertura di SpotPay, con la zona (A o B) e il metodo di scelta (GPS o manuale), che non indica un pagamento
+        completato;</li>
+      <li>eventi automatici e dati tecnici aggiunti da Firebase, descritti qui sotto.</li>
+    </ul>
+    <p>Firebase registra anche alcuni eventi automatici, come la prima apertura, l’inizio di una sessione, il tempo di utilizzo e l’aggiornamento dell’app o del sistema operativo.</p>
+    <p>
+      La prima apertura riporta l’orario del primo avvio dell’app, anche se precedente al consenso: viene inviata solo
+      dopo il consenso.
+    </p>
+    <p>Firebase aggiunge dati tecnici: due identificativi casuali dell’installazione, il sistema operativo e la sua versione, la versione dell’app, la lingua e il fuso orario del telefono. Dall’indirizzo IP Google ricava una località approssimativa, come la regione o il paese.</p>
+    <p>Gli identificativi sono due: quello dell’istanza dell’app, usato da Google Analytics, e quello dell’installazione di Firebase (Firebase Installations). Sono creati dall’SDK di Google e non contengono nome, numero di telefono o targa.</p>
+    <p>
+      Secondo la documentazione di Google, quando registra o elimina il proprio identificativo Firebase Installations
+      riceve anche informazioni tecniche sul telefono e sull’app: versione del sistema operativo, modello, marca e tipo
+      di dispositivo, app da cui BeneSosta è stata installata e versioni delle librerie Firebase. Google dichiara di non
+      collegare queste informazioni a identificativi dell’utente o del dispositivo e di usarle anche per mantenere e
+      migliorare Firebase.
+    </p>
+    <p>
+      Secondo la documentazione di Google, per gli utenti dell’Unione europea l’indirizzo IP serve solo a ricavare la
+      località e Google Analytics non lo registra né lo conserva. La raccolta di dati granulari su località e
+      dispositivo è disattivata.
+    </p>
+    <p><strong>Questi dati sono collegati agli identificativi dell’installazione: non sono anonimi.</strong></p>
+    <p>
+      <strong>Dati mai inviati:</strong> targhe, nomi dei veicoli, coordinate GPS, vie, nomi o email. L’app non usa l’ID
+      pubblicità né l’Android ID, che non compaiono nei dati inviati, non associa identificativi utente e non attiva
+      funzioni pubblicitarie.
+    </p>
+    <p>
+      <strong>Conservazione.</strong> In Google Analytics i dati dei singoli eventi sono conservati per 2 mesi. Il periodo
+      non si rinnova a ogni nuova attività. I report aggregati possono restare anche oltre.
+      L’identificativo di Firebase Installations non segue questi 2 mesi: resta finché non usi «Cancella tutti i dati», non disinstalli l’app o non ne cancelli i dati dalle impostazioni di Android. Secondo la documentazione di Google, viene eliminato dai suoi sistemi dopo circa 270 giorni senza utilizzo.
+    </p>
+  </section>
+
+  <section aria-labelledby="basi">
+    <h2 id="basi">5. Finalità e basi giuridiche</h2>
+    <div class="table-wrap">
+      <table>
+        <caption>Finalità e basi giuridiche</caption>
+        <thead>
+          <tr><th scope="col">Trattamento</th><th scope="col">Base giuridica</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Statistiche di utilizzo (Android)</th>
+            <td>Consenso (art. 6, par. 1, lett. a GDPR). Per l’accesso alle informazioni sul telefono: art. 122 del Codice
+              privacy (d.lgs. 196/2003)</td>
+          </tr>
+          <tr>
+            <th scope="row">Garage, preferenze, ultima apertura di SpotPay, copia della targa, domanda sul pagamento e
+              promemoria sosta</th>
+            <td>Fornitura della funzione che richiedi (art. 6, par. 1, lett. b GDPR). I dati sono salvati sul telefono e
+              il titolare non vi accede</td>
+          </tr>
+          <tr>
+            <th scope="row">Posizione per riconoscere la zona, anche con la rilevazione automatica all’apertura dell’app</th>
+            <td>Fornitura della funzione che richiedi (art. 6, par. 1, lett. b GDPR). La posizione è letta solo con il
+              permesso concesso nel sistema operativo, che puoi revocare in ogni momento</td>
+          </tr>
+          <tr>
+            <th scope="row">Nome della via: invio delle coordinate alla geocodifica di Google o Apple, anche in automatico
+              all’apertura dell’app</th>
+            <td>Fornitura della funzione di posizione che attivi concedendo il permesso (art. 6, par. 1, lett. b GDPR). Il
+              titolare considera il nome della via parte di questa funzione perché la spiegazione mostrata prima della
+              richiesta del permesso ne indica l’invio a Google o ad Apple. Non serve alla scelta della zona: puoi evitarlo
+              negando o revocando il permesso e scegliendo la zona a mano</td>
+          </tr>
+          <tr>
+            <th scope="row">Risposta alle richieste inviate al contatto privacy</th>
+            <td>Obbligo legale di riscontro alle richieste sui diritti (art. 6, par. 1, lett. c GDPR)</td>
+          </tr>
+          <tr>
+            <th scope="row">Conservazione delle email al contatto privacy dopo la chiusura della richiesta</th>
+            <td>Legittimo interesse del titolare a documentare la corretta gestione delle richieste (art. 6, par. 1,
+              lett. f GDPR)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Per il trattamento basato sul legittimo interesse puoi opporti scrivendo al <a href="#titolare">contatto
+      privacy</a>.
+    </p>
+    <p>
+      <strong>Email al contatto privacy.</strong> Le email ricevute e le risposte sono conservate per 24 mesi dalla
+      chiusura della richiesta, per documentarne la gestione. Possono essere conservate più a lungo solo in casi
+      giustificati, ad esempio se è ancora in corso una contestazione.
+    </p>
+  </section>
+
+  <section aria-labelledby="destinatari">
+    <h2 id="destinatari">6. Destinatari e trasferimenti fuori dall’UE</h2>
+    <ul>
+      <li><strong>Google, per le statistiche</strong> (Google Analytics for Firebase e Firebase Installations), solo su
+        Android e solo con il consenso.
+        Per Google Analytics, Google tratta i dati delle statistiche per conto del titolare, come responsabile del trattamento, anche fuori dall’Unione europea, ad esempio negli Stati Uniti. Le condivisioni facoltative dei dati con Google per altri scopi sono disattivate. Firebase Installations è un servizio distinto: Google usa il suo identificativo e alcuni dati tecnici del telefono anche per mantenere e migliorare Firebase, quindi non solo su istruzione del titolare.
+        <ul>
+          <li><strong>Google Analytics:</strong> il ruolo di responsabile (art. 28 GDPR) è previsto dai termini sul
+            trattamento dei dati di Google Analytics, accettati dal titolare. Con le condivisioni disattivate, Google usa
+            i dati di Google Analytics per fornire il servizio, mantenerlo e proteggerlo.</li>
+          <li><strong>Firebase Installations:</strong> il titolare lo usa secondo i termini di Firebase, che non lo citano
+            in modo specifico. L’identificativo e i dati tecnici sul telefono sono descritti nella
+            <a href="#statistiche">sezione 4</a>; secondo la documentazione di Google sono usati per fornire il servizio
+            e, in parte, anche per mantenere e migliorare Firebase e gli altri servizi richiesti.</li>
+        </ul></li>
+      <li><strong>Google o Apple, per il nome della via:</strong> ricevono le coordinate dal servizio di geocodifica del
+        sistema operativo, anche senza il consenso alle statistiche. Non c’è un contratto tra il titolare e Google o Apple
+        per questo servizio: lo forniscono secondo le proprie condizioni e informative, e il ruolo di responsabile
+        descritto sopra non vale per questo trattamento. Google e Apple trattano le coordinate ricevute secondo le
+        proprie regole, non su istruzione del titolare, che non le riceve e non sa per quanto tempo siano conservate.
+        <ul>
+          <li>Google: <a href="https://policies.google.com/privacy?hl=it">Norme sulla privacy di Google</a>.</li>
+          <li>Apple: <a href="https://www.apple.com/it/legal/privacy/">Informativa sulla privacy di Apple</a>.</li>
+        </ul></li>
+      <li><strong>SpotPay, BeMobi e il browser</strong>, solo per le pagine che apri e con i dati che inserisci lì, secondo
+        le loro informative.</li>
+    </ul>
+    <p>
+      <strong>Trasferimenti fuori dall’UE.</strong> I dati delle statistiche, compresi quelli di Firebase Installations,
+      possono essere trattati da Google anche fuori dall’Unione europea. Per i trasferimenti verso gli Stati Uniti Google
+      dichiara di basarsi sulla propria certificazione al Data Privacy Framework UE-USA (decisione di adeguatezza della
+      Commissione europea del 10 luglio 2023) e, nei casi previsti dai suoi termini sul trattamento dei dati, sulle
+      clausole contrattuali standard approvate dalla Commissione europea. Il titolare riporta queste garanzie come
+      dichiarate da Google e non ne ha svolto una verifica indipendente.
+    </p>
+    <p>
+      Le coordinate inviate per il nome della via e i dati tecnici delle visite a questa pagina (vedi
+      <a href="#altro">sezione 10</a>) sono trattati da Google, Apple e GitHub secondo le rispettive condizioni, anche
+      fuori dall’Unione europea: il titolare non sceglie dove sono trattati.
+    </p>
+    <p>
+      <strong>Chi accede ai dati.</strong> La gestione di BeneSosta e la consultazione dei report delle statistiche sono
+      svolte dal titolare, Stefano Mastrocinque, unica persona con accesso amministrativo alle console di Google
+      Analytics, Firebase e Google Cloud usate per l’app. Nelle console sono presenti anche identità tecniche
+      impiegate dai servizi di Google per il loro funzionamento. I fornitori trattano i dati con i propri sistemi e con
+      il proprio personale autorizzato, nei limiti degli accordi e delle condizioni dei singoli servizi. Se in futuro
+      altre persone avranno accesso, questa informativa sarà aggiornata.
+    </p>
+    <p>Il titolare non vende i dati e non li cede ad altri.</p>
+  </section>
+
+  <section aria-labelledby="cancellazione">
+    <h2 id="cancellazione">7. Revoca del consenso e cancellazione</h2>
+    <ul>
+      <li><strong>Revoca delle statistiche:</strong> app › Informazioni › interruttore «Statistiche di utilizzo». La raccolta
+        si interrompe subito. La revoca vale per il futuro e non rende illecito il trattamento già avvenuto.</li>
+      <li><strong>Cancella tutti i dati:</strong> app › Informazioni › «Cancella tutti i dati». Elimina veicoli, preferenze,
+        ultima apertura di SpotPay, domanda sul pagamento, promemoria sosta con le sue notifiche e i suoi avvisi e la tua
+        scelta sulle statistiche, spegne le statistiche e azzera i relativi dati sul
+        telefono, elimina l’identificativo di Firebase Installations (vedi sotto). Non svuota gli appunti.</li>
+      <li><strong>Cancellazione dei dati dell’app dalle impostazioni di Android:</strong> rimuove dal telefono tutti i dati
+        dell’app, compreso l’identificativo di Firebase Installations.</li>
+      <li><strong>Disinstallazione:</strong> rimuove dal telefono tutti i dati dell’app.</li>
+    </ul>
+    <p>La revoca elimina dal telefono i dati statistici non ancora inviati e azzera l’identificativo usato da Google Analytics, ma non quello di Firebase Installations: se poi acconsenti di nuovo, i nuovi dati restano tecnicamente collegabili a quelli inviati prima. «Cancella tutti i dati» fa lo stesso e in più elimina dal telefono l’identificativo di Firebase Installations e chiede a Google di eliminarlo dai suoi sistemi; senza connessione l’app riprova alle aperture successive, per un numero limitato di volte. Se non ci riesce, te lo segnala in Informazioni con «Riprova eliminazione» e, finché l’eliminazione non riesce, le statistiche restano spente anche se le attivi.</p>
+    <p>
+      Secondo la documentazione di Google, dopo l’eliminazione dell’identificativo di Firebase Installations i dati
+      collegati a quell’identificativo nei servizi Firebase sono rimossi entro 180 giorni. Un nuovo identificativo, creato
+      solo se in seguito acconsenti di nuovo alle statistiche, non è collegato al precedente.
+    </p>
+    <p>
+      <strong>Dati già inviati a Google.</strong>
+      Né la revoca né «Cancella tutti i dati» cancellano i dati statistici già ricevuti da Google Analytics: restano per il periodo di conservazione indicato e i report aggregati possono restare anche oltre.
+      Puoi chiederne la cancellazione al titolare, che però potrebbe non riuscire a individuare i dati del tuo telefono
+      (vedi <a href="#diritti">I tuoi diritti</a>).
+    </p>
+  </section>
+
+  <section aria-labelledby="diritti">
+    <h2 id="diritti">8. I tuoi diritti</h2>
+    <p>
+      Puoi chiedere al titolare l’accesso ai dati, la rettifica, la cancellazione, la limitazione del trattamento e la
+      portabilità (articoli 15–20 GDPR), e revocare il consenso in ogni momento (articolo 7). Scrivi al
+      <a href="#titolare">contatto privacy</a>.
+    </p>
+    <p>
+      L’app non ha account e non mostra i propri identificativi: il titolare potrebbe non riuscire a individuare i dati statistici di un singolo telefono. In questo caso te lo comunicherà.
+      Si applica l’articolo 11 GDPR.
+    </p>
+    <p>
+      I dati salvati sul telefono li consulti, modifichi ed elimini direttamente nell’app, anche con «Cancella tutti i dati»: il titolare non li riceve.
+    </p>
+    <p>
+      Puoi proporre reclamo al Garante per la protezione dei dati personali
+      (<a href="https://www.garanteprivacy.it">www.garanteprivacy.it</a>) o all’autorità di controllo del Paese in cui vivi
+      o lavori.
+    </p>
+    <p>
+      <strong>Tempi di risposta.</strong> Il titolare risponde alle richieste senza ingiustificato ritardo e, di norma,
+      entro un mese dal ricevimento. Se la richiesta è complessa o le richieste sono numerose, il termine può essere
+      prorogato di altri due mesi, come previsto dall’articolo 12 GDPR: in questo caso ti sarà comunicato entro il primo
+      mese, con i motivi della proroga.
+    </p>
+    <p>
+      <strong>Verifica dell’identità.</strong> Solo se ci sono dubbi ragionevoli sulla tua identità, il titolare può
+      chiederti le informazioni strettamente necessarie a confermarla. Per le statistiche, non può chiederti dati che
+      l’app non mostra.
+    </p>
+  </section>
+
+  <section aria-labelledby="piattaforme">
+    <h2 id="piattaforme">9. Differenze tra Android e iOS</h2>
+    <div class="table-wrap">
+      <table class="stack">
+        <caption>Cosa cambia tra le due versioni dell’app</caption>
+        <thead>
+          <tr><th scope="col">Funzione</th><th scope="col">Android</th><th scope="col">iOS</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Statistiche di utilizzo</th>
+            <td data-label="Android">Facoltative, con Google Analytics for Firebase, solo dopo il consenso</td>
+            <td data-label="iOS">Non presenti: l’app non invia statistiche</td>
+          </tr>
+          <tr>
+            <th scope="row">Promemoria sosta</th>
+            <td data-label="Android">Scheda nell’app, notifica con conto alla rovescia e avvisi di scadenza creati sul telefono</td>
+            <td data-label="iOS">Solo la scheda nell’app, senza notifiche</td>
+          </tr>
+          <tr>
+            <th scope="row">Nome della via</th>
+            <td data-label="Android">Coordinate inviate alla geocodifica di Google</td>
+            <td data-label="iOS">Coordinate inviate alla geocodifica di Apple</td>
+          </tr>
+          <tr>
+            <th scope="row">Backup nel cloud</th>
+            <td data-label="Android">Escluso dal backup di Google</td>
+            <td data-label="iOS">Escluso dal backup di iCloud</td>
+          </tr>
+          <tr>
+            <th scope="row">Trasferimento diretto a un nuovo telefono</th>
+            <td data-label="Android">L’app chiede di escluderlo (Android 12 e successivi); dipende dal sistema e dallo
+              strumento di trasferimento</td>
+            <td data-label="iOS">Esclusione non garantita: i dati potrebbero essere copiati sul nuovo iPhone</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="altro">
+    <h2 id="altro">10. Altre informazioni</h2>
+    <ul>
+      <li><strong>Obbligo di fornire i dati:</strong> nessuno. Targhe e posizione servono solo alle funzioni che le usano.
+        Puoi scegliere la zona a mano e rifiutare le statistiche.</li>
+      <li><strong>Permessi:</strong> l’app chiede la posizione durante l’uso e, su Android 13 e successivi, il permesso di
+        mostrare notifiche quando attivi un promemoria sosta. Per avvisi puntuali puoi concedere anche «Sveglie e promemoria» nelle
+        impostazioni. Su Android sono esclusi la posizione in background, l’ID pubblicità e i permessi di attribuzione
+        pubblicitaria.</li>
+      <li><strong>Minori:</strong> BeneSosta non è destinata specificamente ai minori di 18 anni. L’app non richiede la
+        registrazione di un account e non raccoglie intenzionalmente informazioni relative all’età degli utenti.</li>
+      <li><strong>Questa pagina:</strong> non usa cookie, script o strumenti di analisi e non carica risorse esterne.
+        È servita tramite connessione cifrata (HTTPS); gli indirizzi <code>http://</code> sono reindirizzati alla
+        versione <code>https://</code>.</li>
+      <li><strong>Dove è ospitata questa pagina:</strong> su GitHub Pages, un servizio di GitHub. Secondo la
+        <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages" hreflang="en">documentazione
+        di GitHub Pages</a> (in inglese), quando visiti un sito GitHub Pages il tuo indirizzo IP viene registrato e conservato per
+        finalità di sicurezza, anche se non hai un account GitHub. Il titolare non riceve questi dati e non ne decide
+        l’uso: GitHub li tratta secondo la propria
+        <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" hreflang="en">informativa
+        privacy</a> (in inglese), che descrive anche i trasferimenti fuori dall’Unione europea, basati sul Data Privacy
+        Framework UE-USA e sulle clausole contrattuali standard. Il titolare non aggiunge alla pagina cookie, moduli o
+        strumenti di tracciamento.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="modifiche">
+    <h2 id="modifiche">11. Modifiche all’informativa</h2>
+    <p>
+      L’informativa può cambiare con l’app. La versione in vigore è sempre su questa pagina, con la data dell’ultimo
+      aggiornamento.
+    </p>
+    <ul>
+      <li><strong>Modifiche minori</strong>, come chiarimenti o correzioni che non cambiano i dati trattati o il modo in
+        cui sono trattati: aggiornamento di questa pagina e della data.</li>
+      <li><strong>Modifiche sostanziali</strong> al trattamento dei dati: oltre all’aggiornamento della pagina, ne sarai
+        informato in modo adeguato, ad esempio con un avviso nell’app.</li>
+      <li><strong>Nuovi trattamenti facoltativi:</strong> se richiedono il consenso, ti sarà chiesto prima di attivarli.
+        Senza il tuo consenso restano spenti.</li>
+    </ul>
   </section>
 </main>
+
+<footer>
+  <p>BeneSosta · <code>it.stefanom5.benesosta</code> · Ultimo aggiornamento:
+    <time datetime="2026-11-13">13 novembre 2026</time>.</p>
+</footer>
 </body>
 </html>

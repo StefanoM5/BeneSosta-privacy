@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Assistenza per l'app BeneSosta: contatti, segnalazioni, domande frequenti su zone, promemoria e posizione.">
+<title>Assistenza — BeneSosta</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #1a1d23;
+    --muted: #4a5160;
+    --line: #d5d9e0;
+    --accent: #0046e0;
+    --accent-strong: #1565d8;
+    --on-accent: #ffffff;
+    --panel: #f3f5f9;
+    --note: #fff7e0;
+    --note-line: #e3c36a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121418;
+      --text: #e8eaee;
+      --muted: #b4bac6;
+      --line: #383d47;
+      --accent: #8fb0ff;
+      --accent-strong: #1f4fb8;
+      --on-accent: #ffffff;
+      --panel: #1c1f25;
+      --note: #2a2516;
+      --note-line: #7a6630;
+    }
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 1.0625rem/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    overflow-wrap: break-word;
+  }
+  .wrap { max-width: 44rem; margin: 0 auto; padding: 0 1rem; }
+  .hero { background: var(--accent-strong); color: var(--on-accent); padding: 1.75rem 0 1.5rem; }
+  .brand { display: flex; align-items: center; gap: 0.75rem; }
+  .brand svg { flex: none; width: 3rem; height: 3rem; }
+  .hero h1 { font-size: 1.75rem; line-height: 1.2; margin: 0; }
+  .hero p { margin: 0.75rem 0 0; }
+  .hero .kicker { margin: 0; font-size: 0.95rem; opacity: 0.9; }
+  h2 { font-size: 1.3rem; line-height: 1.3; margin: 2.25rem 0 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--line); }
+  h3 { font-size: 1.05rem; margin: 1.25rem 0 0.25rem; }
+  p, ul, ol { margin: 0.6rem 0; }
+  li + li { margin-top: 0.3rem; }
+  a { color: var(--accent); text-underline-offset: 0.15em; }
+  .hero a { color: var(--on-accent); }
+  a:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+  .hero a:focus-visible { outline-color: var(--on-accent); }
+  .skip { position: absolute; left: -999rem; }
+  .skip:focus { left: 1rem; top: 1rem; background: var(--bg); color: var(--text); padding: 0.5rem 0.75rem; z-index: 1; }
+  .contact { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.1rem; margin: 1.25rem 0; }
+  .contact p { margin: 0.35rem 0; }
+  .mail {
+    display: inline-block; margin-top: 0.4rem; padding: 0.7rem 1.1rem; border-radius: 10px;
+    background: var(--accent-strong); color: var(--on-accent); font-weight: 600; text-decoration: none;
+    min-height: 44px;
+  }
+  .mail:hover { text-decoration: underline; }
+  .note { background: var(--note); border: 1px solid var(--note-line); border-radius: 12px; padding: 0.8rem 1rem; margin: 1rem 0; }
+  .cards { display: grid; gap: 0.75rem; margin: 1rem 0; }
+  @media (min-width: 40rem) { .cards { grid-template-columns: repeat(2, 1fr); } }
+  .card { border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: 10px; padding: 0.6rem 0.95rem; background: var(--panel); }
+  .card h3 { margin: 0.25rem 0 0.35rem; }
+  .card ul { padding-left: 1.1rem; margin: 0.3rem 0; font-size: 0.98rem; }
+  details { border: 1px solid var(--line); border-radius: 10px; margin: 0.6rem 0; background: var(--bg); }
+  summary { cursor: pointer; padding: 0.75rem 1rem; font-weight: 600; min-height: 44px; }
+  details[open] summary { border-bottom: 1px solid var(--line); }
+  details > :not(summary) { margin-left: 1rem; margin-right: 1rem; }
+  details > :last-child { margin-bottom: 0.9rem; }
+  footer { color: var(--muted); padding-top: 2rem; padding-bottom: 2.5rem; font-size: 0.95rem; }
+  @media print {
+    .skip { display: none; }
+    .hero { background: none; color: inherit; }
+    a, .hero a { color: inherit; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#contenuto">Vai al contenuto</a>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <rect x="1" y="1" width="46" height="46" rx="11" fill="#0046e0" stroke="#ffffff" stroke-width="2"/>
+        <path d="M14 10h11.5c5.6 0 9 3 9 7.4 0 2.6-1.2 4.5-3.2 5.6 3 1 4.8 3.4 4.8 6.8 0 5-3.8 8.2-9.8 8.2H14z" fill="#ffffff"/>
+        <path d="M18.6 14.4v6.8h6.2c2.2 0 3.6-1.3 3.6-3.4s-1.4-3.4-3.6-3.4z M18.6 25.4v8.2h7.2c2.6 0 4.2-1.6 4.2-4.1s-1.6-4.1-4.2-4.1z" fill="#0046e0"/>
+        <rect x="20.6" y="28.2" width="8" height="2.6" rx="1.3" fill="#98f5b0"/>
+      </svg>
+      <div>
+        <p class="kicker">BeneSosta · <span lang="en">Android</span> e <span lang="en">iPhone</span></p>
+        <h1>Assistenza</h1>
+      </div>
+    </div>
+    <p>
+      BeneSosta aiuta a scegliere la zona (A o B) della sosta su strisce blu a Benevento, apre la pagina ufficiale di
+      SpotPay della zona e, se vuoi, ti ricorda quando scade la sosta.
+    </p>
+  </div>
+</header>
+
+<main id="contenuto" class="wrap">
+  <section aria-labelledby="contatti">
+    <h2 id="contatti">Contatti</h2>
+    <div class="contact">
+      <p>Per problemi, domande o suggerimenti scrivi a:</p>
+      <p><a class="mail" href="mailto:barmast@gmail.com?subject=BeneSosta%20-%20Assistenza">barmast@gmail.com</a></p>
+      <p>Le email sono lette dallo sviluppatore, che risponde appena possibile. BeneSosta è un progetto personale: non
+        c’è un servizio di assistenza telefonica.</p>
+    </div>
+    <div class="note">
+      <p><strong>BeneSosta è un’app indipendente.</strong> Non è affiliata al Comune di Benevento, a BeMobi (Benevento
+        Mobilità S.r.l.) né a SpotPay, e non parla a loro nome.</p>
+      <p><strong>I pagamenti avvengono su SpotPay</strong>, nel browser, con le sue condizioni. BeneSosta non incassa,
+        non vede e non verifica i pagamenti: per addebiti, ricevute, rimborsi o problemi del ticket rivolgiti
+        all’assistenza indicata sul sito di SpotPay.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="segnalazioni">
+    <h2 id="segnalazioni">Segnalare un problema o inviare un suggerimento</h2>
+    <p>Per capire meglio il problema, nell’email indica se puoi:</p>
+    <ol>
+      <li>la versione dell’app, che trovi in <strong>Informazioni</strong>, in fondo alla schermata;</li>
+      <li>il telefono e il sistema: Android o iPhone, con la versione;</li>
+      <li>cosa stavi facendo, cosa ti aspettavi e cosa è successo invece;</li>
+      <li>la zona e la via, solo se il problema riguarda il riconoscimento della zona;</li>
+      <li>uno screenshot, se aiuta.</li>
+    </ol>
+    <p>
+      <strong>Non inviare</strong> dati di pagamento, codici di carte o ricevute complete. Se lo screenshot mostra la
+      targa, puoi coprirla: per capire il problema non serve.
+    </p>
+    <p>
+      I suggerimenti sono benvenuti, per esempio su vie con la zona sbagliata, testi poco chiari o funzioni utili.
+      Se partecipi al test con TestFlight, puoi anche inviare un commento dall’app TestFlight.
+    </p>
+    <p>
+      Le email sono trattate come descritto nell’<a href="https://stefanom5.github.io/BeneSosta-privacy/">informativa
+      privacy</a>. Questa pagina non ha moduli, cookie o strumenti di analisi.
+    </p>
+  </section>
+
+  <section aria-labelledby="funzioni">
+    <h2 id="funzioni">Posizione e promemoria</h2>
+    <div class="cards">
+      <section class="card" aria-labelledby="gps">
+        <h3 id="gps">Posizione (GPS)</h3>
+        <ul>
+          <li>Serve solo mentre usi l’app, per suggerire la Zona A o la Zona B. Mai in background.</li>
+          <li>La zona si calcola sul telefono e la posizione non viene salvata.</li>
+          <li>Per mostrare il nome della via, il telefono chiede l’indirizzo a Google (Android) o ad Apple (iPhone).</li>
+          <li>Il permesso è facoltativo: senza, scegli tu la zona.</li>
+          <li>Il cartello vicino all’auto prevale sempre sull’app.</li>
+        </ul>
+      </section>
+      <section class="card" aria-labelledby="promemoria">
+        <h3 id="promemoria">Promemoria sosta</h3>
+        <ul>
+          <li>Facoltativo: l’orario di scadenza lo inserisci tu, dopo aver pagato su SpotPay.</li>
+          <li>Avvisi circa 10 minuti prima e alla scadenza, creati sul telefono: nessun server e nessuna notifica push.</li>
+          <li>Le notifiche mostrano zona e orario, non la targa.</li>
+          <li>Non è una prova di pagamento e non sostituisce il ticket.</li>
+        </ul>
+      </section>
+    </div>
+  </section>
+
+  <section aria-labelledby="faq">
+    <h2 id="faq">Domande frequenti</h2>
+
+    <details>
+      <summary>L’app suggerisce la zona sbagliata o non la riconosce</summary>
+      <p>
+        L’app seleziona una zona solo se un tratto di strisce blu è vicino e ben distinto dall’altra zona. In centro, vicino
+        al confine tra le zone o con un segnale GPS debole può non riconoscerla: in questi casi scegli tu la zona. Puoi
+        sempre toccare l’altra zona, perché la tua scelta prevale, oppure toccare «Rileva» per riprovare.
+      </p>
+      <p>Se una via risulta nella zona sbagliata, segnalala indicando la via e la zona riportata sul cartello.</p>
+    </details>
+
+    <details>
+      <summary>Su SpotPay la targa non è compilata</summary>
+      <p>
+        È normale: SpotPay non offre un modo supportato per inserirla da un’altra app. Quando tocchi «Procedi su
+        SpotPay», BeneSosta copia la targa negli appunti: nel campo targa di SpotPay scegli «Incolla» o il suggerimento
+        della tastiera.
+      </p>
+    </details>
+
+    <details>
+      <summary>BeneSosta conferma che ho pagato?</summary>
+      <p>
+        No. BeneSosta non riceve informazioni da SpotPay. La zona resta selezionata fino a 12 ore dopo l’apertura di
+        SpotPay e il promemoria mostra l’orario che hai inserito tu, ma nessuno dei due indica un pagamento. Fa fede la
+        ricevuta di SpotPay.
+      </p>
+    </details>
+
+    <details>
+      <summary>Non ricevo gli avvisi del promemoria</summary>
+      <p><strong>Su iPhone:</strong> controlla in Impostazioni › Notifiche › BeneSosta che le notifiche siano attive.
+        Full immersion (Focus) e il riepilogo programmato possono ritardare o nascondere gli avvisi.</p>
+      <p><strong>Su Android:</strong> controlla che le notifiche di BeneSosta siano attive. Per avvisi puntuali concedi
+        anche «Sveglie e promemoria»; il risparmio energetico di alcuni telefoni può ritardarli.</p>
+      <p>Controlla sempre la scadenza anche nell’app.</p>
+    </details>
+
+    <details>
+      <summary>Ho negato il permesso di posizione o di notifica: come lo riattivo?</summary>
+      <p>
+        Dalle impostazioni del telefono, nella sezione dedicata a BeneSosta. L’app funziona anche senza: scegli la zona a
+        mano e controlla la scadenza del promemoria nella scheda «Sosta attiva».
+      </p>
+    </details>
+
+    <details>
+      <summary>Dove sono salvati i miei veicoli? Come li cancello?</summary>
+      <p>
+        Targhe, nomi dei veicoli, preferenze e promemoria sono salvati solo nella memoria dell’app sul telefono: non ci
+        sono account e non arrivano allo sviluppatore. Sono esclusi dal backup nel cloud, quindi su un nuovo telefono vanno
+        inseriti di nuovo. Per eliminarli tutti: <strong>Informazioni › Cancella tutti i dati</strong>.
+      </p>
+    </details>
+
+    <details>
+      <summary>L’app raccoglie statistiche?</summary>
+      <p>
+        Solo su Android e solo se acconsenti: statistiche di utilizzo con Google Analytics for Firebase, senza targhe né
+        posizione GPS. Puoi cambiare scelta in Informazioni › «Statistiche di utilizzo». Su iPhone non vengono raccolte.
+        I dettagli sono nell’<a href="https://stefanom5.github.io/BeneSosta-privacy/">informativa privacy</a>.
+      </p>
+    </details>
+
+    <details>
+      <summary>Le tariffe o gli orari mostrati sono ufficiali?</summary>
+      <p>
+        Sono riportati dalle fonti pubbliche di BeMobi e possono cambiare. Valgono sempre la segnaletica sul posto e le
+        condizioni mostrate da SpotPay al momento del pagamento.
+      </p>
+    </details>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p>BeneSosta · <code>it.stefanom5.benesosta</code> ·
+    <a href="https://stefanom5.github.io/BeneSosta-privacy/">Informativa privacy</a></p>
+  <p>Sviluppata da Stefano Mastrocinque. BeneSosta non è un servizio del Comune di Benevento, di BeMobi o di SpotPay.</p>
+</footer>
+</body>
+</html>
